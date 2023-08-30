@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divyam's Planner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
+<body style="background-color: #696cff;">
+    <div class="container text-white py-5">
+        <div class="col-12 text-center pb-2">
+            <h1>Divyam's Planner</h1>
+        </div>
+        <div class="p-3" style="border: black solid 3px; border-radius: 20px;">
+                <div class="mt-4 row">
+                    <div class="col-6 py-1 text-center">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="woke_up" value="done">
+                            {% if waked_up == 1 %}
+                            <button class="btn btn-success btn-lg" type="submit" disabled>Woke up</button>
+                            {% else %}
+                            <button class="btn btn-success btn-lg" type="submit">Woke up</button>
+                            {% endif %}
+                        </form>
+                    </div>
+                    <div class="col-6 py-1 text-center">
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="slept" value="done">
+                            <button class="btn btn-danger btn-lg" type="submit">&nbsp;&nbsp;&nbsp;Slept&nbsp;&nbsp;&nbsp;</button>                            
+                        </form>
+                    </div>
+                </div>
+                <div class="mt-4 row">
+                    <div class="col-12">
+                        <h2>Daily Task</h2>
+                    </div>
+                    <div class="col-12">
+                        <table class="table align-middle" style="background-color: transparent;" id="itemTable{{list.id}}">
+                            <tbody class="table-border-bottom-0" style="background-color: transparent;">
+                                <tr style="background-color: transparent;">
+                                    {% if done_gym == 1 %}
+                                    <td style="background-color: transparent;">
+                                        <input class="form-check-input m-0 p-0" style="border: 1px solid var(--dark-color);" type="checkbox" checked/>
+                                    </td>
+                                    <td style="background-color: transparent;">
+                                        <label class="form-check-label text-wrap p-0 pb-2"><b><a href="{% url 'done_gym' %}" style="color: inherit; text-decoration: line-through;">
+                                            Gym</a></b></label>
+                                    </td>
+                                    {% else %}
+                                    <td style="background-color: transparent;">
+                                        <input class="form-check-input m-0 p-0" style="border: 1px solid var(--dark-color);" type="checkbox"/>
+                                    </td>
+                                    <td style="background-color: transparent;">
+                                        <label class="form-check-label text-wrap p-0 pb-2"><b><a href="{% url 'done_gym' %}" style=" color: inherit; text-decoration: none;">
+                                            Gym</a></b></label>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                <tr style="background-color: transparent;">
+                                    {% if done_noti == 1 %}
+                                    <td style="background-color: transparent;">
+                                        <input class="form-check-input m-0 p-0" style="border: 1px solid var(--dark-color);" type="checkbox" checked/>
+                                    </td>
+                                    <td style="background-color: transparent;">
+                                        <label class="form-check-label text-wrap p-0 pb-2"><b><a href="{% url 'done_noti' %}" style=" color: inherit; text-decoration: line-through;">
+                                            Baker's Hub notification</a></b></label>
+                                    </td>
+                                    {% else %}
+                                    <td style="background-color: transparent;">
+                                        <input class="form-check-input m-0 p-0" style="border: 1px solid var(--dark-color);" type="checkbox"/>
+                                    </td>
+                                    <td style="background-color: transparent;">
+                                        <label class="form-check-label text-wrap p-0 pb-2"><b><a href="{% url 'done_noti' %}" style=" color: inherit; text-decoration: none;">
+                                            Baker's Hub notification</a></b></label>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                <tr style="background-color: transparent;">
+                                    {% if done_post == 1 %}
+                                    <td style="background-color: transparent;">
+                                        <input class="form-check-input m-0 p-0" style="border: 1px solid var(--dark-color);" type="checkbox" checked/>
+                                    </td>
+                                    <td style="background-color: transparent;">
+                                        <label class="form-check-label text-wrap p-0 pb-2"><b><a href="{% url 'done_post' %}" style=" color: inherit; text-decoration: line-through;">
+                                            Baker's Hub post</a></b></label>
+                                    </td>
+                                    {% else %}
+                                    <td style="background-color: transparent;">
+                                        <input class="form-check-input m-0 p-0" style="border: 1px solid var(--dark-color);" type="checkbox"/>
+                                    </td>
+                                    <td style="background-color: transparent;">
+                                        <label class="form-check-label text-wrap p-0 pb-2"><b><a href="{% url 'done_post' %}" style=" color: inherit; text-decoration: none;">
+                                            Baker's Hub post</a></b></label>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                <tr style="background-color: transparent;">
+                                    {% if done_yt == 1 %}
+                                    <td style="background-color: transparent;">
+                                        <input class="form-check-input m-0 p-0" style="border: 1px solid var(--dark-color);" type="checkbox" checked/>
+                                    </td>
+                                    <td style="background-color: transparent;">
+                                        <label class="form-check-label text-wrap p-0 pb-2"><b><a href="{% url 'done_yt' %}" style=" color: inherit; text-decoration: line-through;">
+                                            YouTube</a></b></label>
+                                    </td>
+                                    {% else %}
+                                    <td style="background-color: transparent;">
+                                        <input class="form-check-input m-0 p-0" style="border: 1px solid var(--dark-color);" type="checkbox"/>
+                                    </td>
+                                    <td style="background-color: transparent;">
+                                        <label class="form-check-label text-wrap p-0 pb-2"><b><a href="{% url 'done_yt' %}" style=" color: inherit; text-decoration: none;">
+                                            YouTube</a></b></label>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+                <div class="mt-4 row">
+                    <div class="col-12">
+                        <h2>Task list</h2>
+                    </div>
+                    <form method="post">
+                        <div class="row">
+                            {% csrf_token %}
+                            <div class="col-8 pb-3">
+                                <input type="text" class="form-control" id="task" name="task" autofocus
+                                placeholder="New Task" aria-label="Enter Task" required style="border: 1px solid black;"/>
+                            </div>
+                            <div class="col-4 text-center pb-3">
+                                <button class="btn btn-primary" type="submit">&nbsp;&nbsp;Add&nbsp;&nbsp;</button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div class="col-12">
+                        <table class="table align-middle" style="background-color: transparent;" id="itemTable{{list.id}}">
+                            <tbody class="table-border-bottom-0" style="background-color: transparent;">
+                                {% for task in all_task reversed %}
+                                <tr style="background-color: transparent;">
+                                    {% if task.completed == True %}
+                                    <td style="background-color: transparent;">
+                                        <input class="form-check-input m-0 p-0" style="border: 1px solid var(--dark-color);" type="checkbox" checked/>
+                                    </td>
+                                    <td style="background-color: transparent;">
+                                        <label class="form-check-label text-wrap p-0 pb-2"><a href="{% url 'complete_task' task.id %}" style="color: inherit; text-decoration: line-through;"><b>{{task.task}}</a></b></label>
+                                    </td> 
+                                    {% else %}
+                                    <td style="background-color: transparent;">
+                                        <input class="form-check-input m-0 p-0" style="border: 1px solid var(--dark-color);" type="checkbox"/>
+                                    </td>
+                                    <td style="background-color: transparent;">
+                                        <label class="form-check-label text-wrap p-0 pb-2"><a href="{% url 'complete_task' task.id %}" style="color: inherit; text-decoration: none;"><b>{{task.task}}</a></b></label>
+                                    </td>                                
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                                
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
