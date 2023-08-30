@@ -8,6 +8,11 @@ from django.db.models import Count
 from database.models import DailyAnalytics,TaskList
 import datetime
 
+def boss(request):
+    domain = request.META.get('HTTP_HOST')
+    return redirect(f'https://{domain}/admin')
+
+@login_required(login_url=reverse_lazy('boss'))
 def home(request):
     waked_up = 0
     done_gym = 0
